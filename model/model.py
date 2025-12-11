@@ -45,7 +45,6 @@ class Model:
 
         #print(self.G)
 
-
     def get_edges_weight_min_max(self):
         """
         Restituisce min e max peso degli archi nel grafo
@@ -71,4 +70,8 @@ class Model:
         return cnt_min, cnt_max
 
     """Implementare la parte di ricerca del cammino minimo"""
-    # TODO
+    def find_shortest_path(self, soglia):
+        """Usando l'algoritmo di Dijkstra"""
+
+
+        pass
