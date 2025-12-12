@@ -71,7 +71,28 @@ class Model:
 
     """Implementare la parte di ricerca del cammino minimo"""
     def find_shortest_path(self, soglia):
-        """Usando l'algoritmo di Dijkstra"""
+        # filtraggio del grafo secondo il valore del peso
+        filtered_graph = nx.Graph()
+        min = float('inf')
+        r_partenza = None
+        r_arrivo = None
 
+        for r1, r2, w in self.G.edges(data=True):
+            if w['weight'] > soglia:
+                filtered_graph.add_edge(r1, r2, weight=w['weight'])
 
-        pass
+        fw = nx.floyd_warshall(filtered_graph)
+        result = {a: dict(b) for a, b in fw.items()}
+
+        for r1 in result:
+            for r2 in result[r1]:
+                if r1 == r2 or filtered_graph.has_edge(r1, r2) or result[r1][r2] >= min:
+                    pass
+                else:
+                    min = result[r1][r2]
+                    r_partenza = r1
+                    r_arrivo = r2
+
+        shortest_path_nodes = nx.shortest_path(filtered_graph, source=r_partenza, target=r_arrivo)
+        shortest_path_edges = list(zip(shortest_path_nodes[:-1], shortest_path_nodes[1:]))
+        return shortest_path_edges

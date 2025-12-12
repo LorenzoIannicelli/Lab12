@@ -58,6 +58,12 @@ class Controller:
         self._view.lista_visualizzazione_3.controls.clear()
         self._view.lista_visualizzazione_3.controls.append(
             ft.Text("Cammino Minimo"))
+        for step in shortest_path:
+            r1 = step[0]
+            r2 = step[1]
+            peso = self._model.G[r1][r2]['weight']
+            self._view.lista_visualizzazione_3.controls.append(
+                ft.Text(f"{step[0]} --> {step[1]} [peso: {peso}]"))
         self._view.page.update()
 
     def checkGraph(self):
